@@ -1,10 +1,13 @@
-# edit this makefile so that running make compiles your enigma program
+CC = g++
+CFLAGS = -std=c++11 -Wall -Werror -pedantic
+
+all: enigma
 
 enigma: Main.o
-	g++ -o enigma Main.o
+	$(CC) $(CFLAGS) -o enigma Main.o
 
 Main.o: Main.cpp
-	g++ -c Main.cpp
+	$(CC) $(CFLAGS) -c Main.cpp
 
 clean:
 	rm -rf enigma *.o
