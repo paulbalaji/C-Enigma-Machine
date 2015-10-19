@@ -8,14 +8,14 @@ using namespace std;
 
 class Rotor {
 public:
-    Rotor(vector<int>);
+    Rotor(vector<int>*);
     bool rotorTurn();
     int forwardsGetChar(int);
     int backwardsGetChar(int);
 
 private:
     int numOfTurns;
-    vector<int> settings;
+    vector<int> *settings;
     void calculateOffset();
 
 };

@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 {
     //keep track of all rotors
 //    vector<shared_ptr<Rotor>> rotors;
-    vector<Rotor> rotors;
+    vector<Rotor*> rotors;
 
     //Make rotor objects here
     for (int i = 1; i < argc - 1; i++) {
@@ -30,21 +30,14 @@ int main(int argc, char **argv)
 //        shared_ptr<vector<int>> rotor_config;
         vector<int> *rotor_config = new vector<int>;
         for (int j = 0; j < 26; j++) {
-//        while (!rotor.eof()) {
             string value;
             rotor >> value;
-            cout << "before: " << typeid(value).name() << endl; //TESTING
-            int x = stoi(value);
-            cout << "after: " << typeid(x).name() << endl; //TESTING
-            rotor_config->push_back(x); //CAUSING PROBLEMS
-            cout << "doesn't reach this statement" << endl;
+            rotor_config->push_back(stoi(value)); //CAUSING PROBLEMS
         }
 
-        cout << "got here?" << endl;
 //        shared_ptr<Rotor> r(new Rotor(rotor_config));
-        Rotor r = new Rotor(rotor_config);
-        cout << "adding to rotors" << endl;
-        rotors.push_back(r);
+//        Rotor *r = new Rotor(rotor_config);
+        rotors.push_back(new Rotor(rotor_config));
 
         rotor.close();
     }
@@ -64,10 +57,7 @@ int main(int argc, char **argv)
     while (!plugboard.eof()) {
         string plug;
         plugboard >> plug;
-        cout << "before: " << typeid(plug).name() << endl; //TESTING
-        int x = stoi(plug);
-        cout << "after: " << typeid(x).name() << endl; //TESTING
-        plugboard_config->push_back(x);
+        plugboard_config->push_back(stoi(plug));
     }
 
     plugboard.close();
