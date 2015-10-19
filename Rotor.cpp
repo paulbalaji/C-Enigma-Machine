@@ -1,7 +1,7 @@
 #include "Rotor.h"
 
-Rotor::Rotor(vector<int>* config) {
-    this->settings = config;
+Rotor::Rotor(vector<int>* settings) {
+    this->settings = settings;
     this->numOfTurns = 0;
     calculateOffset();
     rotorTurn();

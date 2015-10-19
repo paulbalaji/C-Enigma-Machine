@@ -1,66 +1,73 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <memory>
-
-#include <typeinfo> //TESTING
 
 #include "Rotor.h"
+#include "Plugboard.h"
 
 using namespace std;
 
-int main(int argc, char **argv)
+void getRotors(int, char**, vector<Rotor*>);
+Plugboard* getPlugboard(int, char**);
+
+int main(int argc, char** argv)
 {
     //keep track of all rotors
-//    vector<shared_ptr<Rotor>> rotors;
     vector<Rotor*> rotors;
 
+    getRotors(argc, argv, rotors);
+
+    Plugboard* plugboard = getPlugboard(argc, argv);
+    plugboard->blah();
+
+    return 0;
+}
+
+void getRotors(int argc, char** argv, vector<Rotor*> rotors) {
     //Make rotor objects here
     for (int i = 1; i < argc - 1; i++) {
         //input stream
-        ifstream rotor(argv[i]);
+        ifstream rotorFile(argv[i]);
 
         //error handling if file can't be opened
-        if (!rotor) {
+        if (!rotorFile) {
             runtime_error("Error opening a rotor file.");
             exit(1);
         }
 
         //get rotor information from file, add to vector
-//        shared_ptr<vector<int>> rotor_config;
-        vector<int> *rotor_config = new vector<int>;
+        vector<int>* rotor_config = new vector<int>;
         for (int j = 0; j < 26; j++) {
             string value;
-            rotor >> value;
+            rotorFile >> value;
             rotor_config->push_back(stoi(value)); //CAUSING PROBLEMS
         }
 
-//        shared_ptr<Rotor> r(new Rotor(rotor_config));
-//        Rotor *r = new Rotor(rotor_config);
         rotors.push_back(new Rotor(rotor_config));
 
-        rotor.close();
+        rotorFile.close();
     }
+}
 
+Plugboard* getPlugboard(int argc, char** argv) {
     //Make a plugboard object
-    ifstream plugboard(argv[argc-1]);
-    
+    ifstream plugboardFile(argv[argc-1]);
+
     //error handling if file can't be opened
-    if (!plugboard) {
+    if (!plugboardFile) {
         runtime_error("Error opening the plugboard file.");
         exit(1);
     }
 
     //get plugboard information from file, add to vector
-//    shared_ptr<vector<int>> plugboard_config;
-    vector<int> *plugboard_config = new vector<int>;
-    while (!plugboard.eof()) {
+    vector<int>* plugboard_config = new vector<int>;
+    while (!plugboardFile.eof()) {
         string plug;
-        plugboard >> plug;
+        plugboardFile >> plug;
         plugboard_config->push_back(stoi(plug));
     }
 
-    plugboard.close();
+    plugboardFile.close();
 
-    return 0;
+    return new Plugboard(plugboard_config);
 }

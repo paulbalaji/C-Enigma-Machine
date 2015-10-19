@@ -15,7 +15,7 @@ public:
 
 private:
     int numOfTurns;
-    vector<int> *settings;
+    vector<int>* settings;
     void calculateOffset();
 
 };
