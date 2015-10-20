@@ -3,28 +3,42 @@
 #include <fstream>
 #include <vector>
 
+#include "Component.h"
 #include "Rotor.h"
 #include "Plugboard.h"
+#include "Reflector.h"
 
 using namespace std;
 
-void getRotors(int, char**, vector<Rotor*>);
-Plugboard* getPlugboard(int, char**);
+void getRotors(int, char**, vector<Component*>);
+Component* getPlugboard(int, char**);
 
 int main(int argc, char** argv)
 {
-	//make plugboard
-	Plugboard* plugboard = getPlugboard(argc, argv);
+    //need a way to keep track of all the components
+    vector<Component*> components;
 
-	//keep track of all rotors
-    vector<Rotor*> rotors;
+	//get plugboard settings
+	Component* plugboard = getPlugboard(argc, argv);
+	components.push_back(plugboard);
 
-    getRotors(argc, argv, rotors);
+	//get the rotors and all their settings
+    getRotors(argc, argv, components);
+
+    //get the reflector
+    Component* reflector = new Reflector();
+    components.push_back(reflector);
+
+    //get some input
+    //translate into int
+    //go forwards in the machine
+    //go backwards in the machine
+    //translate int back into encoded character
 
     return 0;
 }
 
-void getRotors(int argc, char** argv, vector<Rotor*> rotors) {
+void getRotors(int argc, char** argv, vector<Component*> components) {
     //Make rotor objects here
     for (int i = 1; i < argc - 1; i++) {
         //input stream
@@ -44,13 +58,13 @@ void getRotors(int argc, char** argv, vector<Rotor*> rotors) {
             rotor_config->push_back(stoi(value)); //CAUSING PROBLEMS
         }
 
-        rotors.push_back(new Rotor(rotor_config));
+        components.push_back(new Rotor(rotor_config));
 
         rotorFile.close();
     }
 }
 
-Plugboard* getPlugboard(int argc, char** argv) {
+Component* getPlugboard(int argc, char** argv) {
     //Make a plugboard object
     ifstream plugboardFile(argv[argc-1]);
 

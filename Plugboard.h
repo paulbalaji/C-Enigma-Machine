@@ -18,12 +18,8 @@ using namespace std;
 class Plugboard : public Component {
 public:
     Plugboard(vector<int>*);
-    ~Plugboard();
-    int forwardsGetChar(int);
-    int backwardsGetChar(int);
-
+private:
+    void firstTimeConfig(vector<int>*);
 };
-
-
 
 #endif /* PLUGBOARD_H_ */

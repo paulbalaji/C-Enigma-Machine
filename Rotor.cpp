@@ -4,11 +4,6 @@ Rotor::Rotor(vector<int>* settings) {
     this->settings = settings;
     this->numOfTurns = 0;
     calculateOffset();
-    rotorTurn();
-}
-
-Rotor::~Rotor() {
-	free(settings);
 }
 
 //converts vector of configuration into offsets for easier use
