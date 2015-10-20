@@ -29,6 +29,7 @@ int main(int argc, char** argv)
     Component* reflector = new Reflector();
     components.push_back(reflector);
 
+    //TODO
     //get some input
     //translate into int
     //go forwards in the machine
