@@ -9,16 +9,19 @@
 #define PLUGBOARD_H_
 
 #include <vector>
+#include <stdlib.h>
+
+#include "Component.h"
 
 using namespace std;
 
-class Plugboard {
+class Plugboard : public Component {
 public:
     Plugboard(vector<int>*);
-    void blah();
+    ~Plugboard();
+    int forwardsGetChar(int);
+    int backwardsGetChar(int);
 
-private:
-    vector<int>* settings;
 };
 
 

@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -12,13 +13,13 @@ Plugboard* getPlugboard(int, char**);
 
 int main(int argc, char** argv)
 {
-    //keep track of all rotors
+	//make plugboard
+	Plugboard* plugboard = getPlugboard(argc, argv);
+
+	//keep track of all rotors
     vector<Rotor*> rotors;
 
     getRotors(argc, argv, rotors);
-
-    Plugboard* plugboard = getPlugboard(argc, argv);
-    plugboard->blah();
 
     return 0;
 }

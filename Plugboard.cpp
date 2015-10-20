@@ -11,6 +11,6 @@ Plugboard::Plugboard(vector<int>* settings) {
     this->settings = settings;
 }
 
-void Plugboard::blah() {
-
+Plugboard::~Plugboard() {
+	free(settings);
 }

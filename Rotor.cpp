@@ -7,6 +7,10 @@ Rotor::Rotor(vector<int>* settings) {
     rotorTurn();
 }
 
+Rotor::~Rotor() {
+	free(settings);
+}
+
 //converts vector of configuration into offsets for easier use
 void Rotor::calculateOffset() {
     for (int i = 0; i < 26; i++) {
@@ -32,16 +36,3 @@ bool Rotor::rotorTurn() {
 
     return false;
 }
-
-//returns position of char going forwards
-int Rotor::forwardsGetChar(int charNum) {
-    charNum = (charNum + this->settings->at(charNum)) % 26 ;
-    return charNum;
-}
-
-//returns position of char going backwards
-int Rotor::backwardsGetChar(int charNum) {
-    charNum = (charNum + 26 - this->settings->at(charNum)) % 26;
-    return charNum;
-}
-
