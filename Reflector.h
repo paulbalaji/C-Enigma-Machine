@@ -13,6 +13,9 @@
 class Reflector : public Component {
 public:
     Reflector();
+    bool rotorTurn() {
+        return false;
+    }
 };
 
 #endif /* REFLECTOR_H_ */

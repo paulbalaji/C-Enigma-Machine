@@ -27,9 +27,7 @@ void Rotor::calculateOffsets() {
 //return true if need to turn next rotor
 bool Rotor::rotorTurn() {
     for (int i = 0; i < 26; i++) {
-        int temp = forward->at(i);
-        temp = (temp + 1) % 26;
-        forward->at(i) = temp;
+        forward->at(i) = (forward->at(i) + 1) % 26;
     }
 
     calculateBackwardSettings();

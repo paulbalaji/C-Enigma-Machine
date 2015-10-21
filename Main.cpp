@@ -14,6 +14,7 @@ using namespace std;
 void getRotors(int, char**, vector<Component*>*);
 Component* getPlugboard(int, char**);
 char runMachine(vector<Component*>*, char);
+void turnRotors(vector<Component*>*);
 int charToInt(char);
 char intToChar(int);
 
@@ -33,11 +34,14 @@ int main(int argc, char** argv)
     Component* reflector = new Reflector();
     components.push_back(reflector);
 
-    char test;
-    cout << "input char: ";
-    cin >> test;
-    char output = runMachine(&components, test);
-    cout << "output: " << output << endl;
+    while (true) {
+        char test;
+        cout << "input char: ";
+        cin >> test;
+        char output = runMachine(&components, test);
+        turnRotors(&components);
+        cout << "output: " << output << endl;
+    }
 
     //free components
     for (Component* c : components) {
@@ -48,7 +52,6 @@ int main(int argc, char** argv)
     for (int i = 0; i < argc; i++) {
         free(argv[argc]);
     }
-    free(argv);
 
     return 0;
 }
@@ -117,19 +120,30 @@ char intToChar(int charNum) {
 }
 
 char runMachine(vector<Component*>* components, char character) {
-        int charNum = charToInt(character);
+    int charNum = charToInt(character);
 
-        //go forwards in the machine
-        for (unsigned int i = 0; i < components->size(); i++) {
-            charNum = components->at(i)->forwardsGetChar(charNum);
-        }
+    //go forwards in the machine
+    for (unsigned int i = 0; i < components->size(); i++) {
+        charNum = components->at(i)->forwardsGetChar(charNum);
+    }
 
-        //go backwards in the machine
-        for (int i = components->size() - 2; i >= 0; i--) {
-            charNum = components->at(i)->backwardsGetChar(charNum);
-        }
+    //go backwards in the machine
+    for (int i = components->size() - 2; i >= 0; i--) {
+        charNum = components->at(i)->backwardsGetChar(charNum);
+    }
 
-        //translate int back into encoded character
-
+    //return translated int back into encoded character
     return intToChar(charNum);
+}
+
+void turnRotors(vector<Component*>* components) {
+    bool needToTurn = true;
+    for (unsigned int i = 1; i < components->size() - 1; i++) {
+        if (needToTurn) {
+            needToTurn = components->at(i)->rotorTurn();
+        } else {
+            //if don't need to turn, nothing else needs to turn
+            break;
+        }
+    }
 }

@@ -11,6 +11,9 @@
 #include <stdlib.h>
 #include <vector>
 
+//testing
+#include <iostream>
+
 using namespace std;
 
 class Component {
@@ -19,6 +22,7 @@ public:
 	int forwardsGetChar(int);
 	int backwardsGetChar(int);
 	void calculateBackwardSettings();
+	virtual bool rotorTurn() = 0;
 
 protected:
 	vector<int>* forward = NULL;

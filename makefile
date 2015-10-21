@@ -9,16 +9,16 @@ enigma: Main.o Rotor.o Plugboard.o Reflector.o Component.o
 Main.o: Main.cpp
 	$(CC) $(CFLAGS) -c Main.cpp
 
-Rotor.o: Rotor.cpp
+Rotor.o: Rotor.cpp Rotor.h
 	$(CC) $(CFLAGS) -c Rotor.cpp
 	
-Plugboard.o: Plugboard.cpp
+Plugboard.o: Plugboard.cpp Plugboard.h
 	$(CC) $(CFLAGS) -c Plugboard.cpp
 
-Reflector.o: Reflector.cpp
+Reflector.o: Reflector.cpp Reflector.h
 	$(CC) $(CFLAGS) -c Reflector.cpp
 
-Component.o: Component.cpp
+Component.o: Component.cpp Component.h
 	$(CC) $(CFLAGS) -c Component.cpp
 
 clean:

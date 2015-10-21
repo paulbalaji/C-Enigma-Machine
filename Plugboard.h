@@ -18,6 +18,9 @@ using namespace std;
 class Plugboard : public Component {
 public:
     Plugboard(vector<int>*);
+    bool rotorTurn() {
+        return true;
+    }
 
 private:
     void firstTimeConfig(vector<int>*);
