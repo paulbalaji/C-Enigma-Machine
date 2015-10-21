@@ -37,6 +37,9 @@ int main(int argc, char** argv)
     while (true) {
         char test;
         cin >> test;
+        while (test == ' ' || test == '\n' || test == '\t' || test == '\r') {
+            cin >> test;
+        }
         char output = runMachine(&components, test);
         turnRotors(&components);
         cout << output << endl;
@@ -103,7 +106,6 @@ Component* getPlugboard(int argc, char** argv) {
         string plug;
         plugboardFile >> plug;
         if (plug[plug.length()-1] >= '0' && plug[plug.length()-1] <= '9') {
-            cout << "plug: " << plug << endl;
             plugboard_config->push_back(stoi(plug));
         }
     }
