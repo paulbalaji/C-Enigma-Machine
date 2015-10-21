@@ -1,27 +1,38 @@
 #include "Rotor.h"
 
+#include <iostream>
+
 Rotor::Rotor(vector<int>* settings) {
-    this->settings = settings;
+    this->forward = settings;
     this->numOfTurns = 0;
-    calculateOffset();
+    calculateOffsets();
 }
 
 //converts vector of configuration into offsets for easier use
-void Rotor::calculateOffset() {
+void Rotor::calculateOffsets() {
     for (int i = 0; i < 26; i++) {
-        int temp = this->settings->at(i);
+        int temp = forward->at(i);
         temp = (temp + 26 - i) % 26;
-        this->settings->at(i) = temp;
+        forward->at(i) = temp;
     }
+
+    backward = new vector<int>;
+    for (int i = 0; i < 26; i++) {
+        backward->push_back(0);
+    }
+
+    calculateBackwardSettings();
 }
 
 //return true if need to turn next rotor
 bool Rotor::rotorTurn() {
     for (int i = 0; i < 26; i++) {
-        int temp = this->settings->at(i);
+        int temp = forward->at(i);
         temp = (temp + 1) % 26;
-        this->settings->at(i) = temp;
+        forward->at(i) = temp;
     }
+
+    calculateBackwardSettings();
 
     numOfTurns++;
     if (numOfTurns == 26) {

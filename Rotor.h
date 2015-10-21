@@ -15,7 +15,7 @@ public:
 
 private:
     int numOfTurns;
-    void calculateOffset();
+    void calculateOffsets();
 };
 
 #endif /* ROTOR_H_ */

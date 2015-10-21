@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <stdlib.h>
 
 #include "Component.h"
 #include "Rotor.h"
@@ -10,8 +11,11 @@
 
 using namespace std;
 
-void getRotors(int, char**, vector<Component*>);
+void getRotors(int, char**, vector<Component*>*);
 Component* getPlugboard(int, char**);
+char runMachine(vector<Component*>*, char);
+int charToInt(char);
+char intToChar(int);
 
 int main(int argc, char** argv)
 {
@@ -23,23 +27,33 @@ int main(int argc, char** argv)
 	components.push_back(plugboard);
 
 	//get the rotors and all their settings
-    getRotors(argc, argv, components);
+    getRotors(argc, argv, &components);
 
     //get the reflector
     Component* reflector = new Reflector();
     components.push_back(reflector);
 
-    //TODO
-    //get some input
-    //translate into int
-    //go forwards in the machine
-    //go backwards in the machine
-    //translate int back into encoded character
+    char test;
+    cout << "input char: ";
+    cin >> test;
+    char output = runMachine(&components, test);
+    cout << "output: " << output << endl;
+
+    //free components
+    for (Component* c : components) {
+        free(c);
+    }
+
+    //free list of arguments
+    for (int i = 0; i < argc; i++) {
+        free(argv[argc]);
+    }
+    free(argv);
 
     return 0;
 }
 
-void getRotors(int argc, char** argv, vector<Component*> components) {
+void getRotors(int argc, char** argv, vector<Component*>* components) {
     //Make rotor objects here
     for (int i = 1; i < argc - 1; i++) {
         //input stream
@@ -56,10 +70,10 @@ void getRotors(int argc, char** argv, vector<Component*> components) {
         for (int j = 0; j < 26; j++) {
             string value;
             rotorFile >> value;
-            rotor_config->push_back(stoi(value)); //CAUSING PROBLEMS
+            rotor_config->push_back(stoi(value));
         }
 
-        components.push_back(new Rotor(rotor_config));
+        components->push_back(new Rotor(rotor_config));
 
         rotorFile.close();
     }
@@ -86,4 +100,36 @@ Component* getPlugboard(int argc, char** argv) {
     plugboardFile.close();
 
     return new Plugboard(plugboard_config);
+}
+
+int charToInt(char character) {
+    if (character >= 'A' || character <= 'Z') {
+        return character - 'A';
+    }
+
+    runtime_error("Only allowed to enter capital A-Z.");
+    exit(1);
+}
+
+char intToChar(int charNum) {
+    //no checks needed here as charToInt sorts everything out first
+    return 'A' + charNum;
+}
+
+char runMachine(vector<Component*>* components, char character) {
+        int charNum = charToInt(character);
+
+        //go forwards in the machine
+        for (unsigned int i = 0; i < components->size(); i++) {
+            charNum = components->at(i)->forwardsGetChar(charNum);
+        }
+
+        //go backwards in the machine
+        for (int i = components->size() - 2; i >= 0; i--) {
+            charNum = components->at(i)->backwardsGetChar(charNum);
+        }
+
+        //translate int back into encoded character
+
+    return intToChar(charNum);
 }

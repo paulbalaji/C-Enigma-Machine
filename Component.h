@@ -18,9 +18,11 @@ public:
     ~Component();
 	int forwardsGetChar(int);
 	int backwardsGetChar(int);
+	void calculateBackwardSettings();
 
 protected:
-	vector<int>* settings = NULL;
+	vector<int>* forward = NULL;
+	vector<int>* backward = NULL;
 };
 
 #endif /* COMPONENT_H_ */

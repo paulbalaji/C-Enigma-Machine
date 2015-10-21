@@ -15,16 +15,23 @@ Plugboard::Plugboard(vector<int>* tempSettings) {
 
 void Plugboard::firstTimeConfig(vector<int>* temp) {
     //make settings config in similar format to others
-    settings = new vector<int>;
+    forward = new vector<int>;
     for (int i = 0; i < 26; i++) {
         //fill everything with 0 to start off with
-        settings->push_back(0);
+        forward->push_back(0);
     }
 
     for (unsigned int j = 0; j < temp->size(); j+=2) {
         int first = temp->at(j);
         int second = temp->at(j+1);
-        settings->at(first) = second - first;
-        settings->at(second) = -1 * settings->at(first);
+        forward->at(first) = second - first;
+        forward->at(second) = -1 * forward->at(first);
     }
+
+    backward = new vector<int>;
+    for (int i = 0; i < 26; i++) {
+        //fill everything with 0 to start off with
+        backward->push_back(0);
+    }
+    calculateBackwardSettings();
 }

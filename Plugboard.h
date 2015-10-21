@@ -18,6 +18,7 @@ using namespace std;
 class Plugboard : public Component {
 public:
     Plugboard(vector<int>*);
+
 private:
     void firstTimeConfig(vector<int>*);
 };
