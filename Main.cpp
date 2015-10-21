@@ -34,15 +34,18 @@ int main(int argc, char** argv)
     Component* reflector = new Reflector();
     components.push_back(reflector);
 
-    while (true) {
+    while (!cin.eof()) {
         char test;
         cin >> test;
+        if (cin.eof()) {
+            break;
+        }
         while (test == ' ' || test == '\n' || test == '\t' || test == '\r') {
             cin >> test;
         }
         char output = runMachine(&components, test);
         turnRotors(&components);
-        cout << output << endl;
+        cout << output;
     }
 
     //free components
@@ -76,12 +79,6 @@ void getRotors(int argc, char** argv, vector<Component*>* components) {
             int value;
             rotorFile >> value;
             rotor_config->push_back(value);
-//            string value;
-//            rotorFile >> value;
-//            if (value[value.length()-1] >= '0' && value[value.length()-1] <= '9') {
-//                cout << "plug: " << value << endl;
-//                rotor_config->push_back(stoi(value));
-//            }
         }
 
         components->push_back(new Rotor(rotor_config));
@@ -102,7 +99,7 @@ Component* getPlugboard(int argc, char** argv) {
 
     //get plugboard information from file, add to vector
     vector<int>* plugboard_config = new vector<int>;
-    while (!plugboardFile.eof()) {
+    while (!(plugboardFile.peek() == EOF)) {
         string plug;
         plugboardFile >> plug;
         if (plug[plug.length()-1] >= '0' && plug[plug.length()-1] <= '9') {
