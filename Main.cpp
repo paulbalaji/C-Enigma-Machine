@@ -70,9 +70,15 @@ void getRotors(int argc, char** argv, vector<Component*>* components) {
         //get rotor information from file, add to vector
         vector<int>* rotor_config = new vector<int>;
         for (int j = 0; j < 26; j++) {
-            string value;
+            int value;
             rotorFile >> value;
-            rotor_config->push_back(stoi(value));
+            rotor_config->push_back(value);
+//            string value;
+//            rotorFile >> value;
+//            if (value[value.length()-1] >= '0' && value[value.length()-1] <= '9') {
+//                cout << "plug: " << value << endl;
+//                rotor_config->push_back(stoi(value));
+//            }
         }
 
         components->push_back(new Rotor(rotor_config));
@@ -96,7 +102,10 @@ Component* getPlugboard(int argc, char** argv) {
     while (!plugboardFile.eof()) {
         string plug;
         plugboardFile >> plug;
-        plugboard_config->push_back(stoi(plug));
+        if (plug[plug.length()-1] >= '0' && plug[plug.length()-1] <= '9') {
+            cout << "plug: " << plug << endl;
+            plugboard_config->push_back(stoi(plug));
+        }
     }
 
     plugboardFile.close();
