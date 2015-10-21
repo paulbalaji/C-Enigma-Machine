@@ -28,7 +28,6 @@ int Component::backwardsGetChar(int charNum) {
 }
 
 void Component::calculateBackwardSettings() {
-    cout << "blah" << endl;
     for (unsigned int start = 0; start < forward->size(); start++) {
         int end = (start + forward->at(start)) % 26;
         backward->at(end) = forward->at(start);

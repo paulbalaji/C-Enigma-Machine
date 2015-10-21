@@ -11,9 +11,6 @@
 #include <stdlib.h>
 #include <vector>
 
-//testing
-#include <iostream>
-
 using namespace std;
 
 class Component {

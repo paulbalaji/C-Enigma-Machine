@@ -36,11 +36,10 @@ int main(int argc, char** argv)
 
     while (true) {
         char test;
-        cout << "input char: ";
         cin >> test;
         char output = runMachine(&components, test);
         turnRotors(&components);
-        cout << "output: " << output << endl;
+        cout << output << endl;
     }
 
     //free components
