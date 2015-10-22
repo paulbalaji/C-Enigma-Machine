@@ -12,6 +12,7 @@ class Rotor : public Component {
 public:
     Rotor(vector<int>*);
     bool rotorTurn();
+    int getNumOfTurns();
 
 private:
     int numOfTurns;

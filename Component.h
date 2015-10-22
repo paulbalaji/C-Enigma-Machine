@@ -20,6 +20,7 @@ public:
 	int backwardsGetChar(int);
 	void calculateBackwardSettings();
 	virtual bool rotorTurn() = 0;
+	virtual int getNumOfTurns() = 0;
 
 protected:
 	vector<int>* forward = NULL;

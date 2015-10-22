@@ -1,6 +1,6 @@
 #include "Rotor.h"
 
-#include <iostream>
+#include <algorithm>
 
 Rotor::Rotor(vector<int>* settings) {
     this->forward = settings;
@@ -26,17 +26,18 @@ void Rotor::calculateOffsets() {
 
 //return true if need to turn next rotor
 bool Rotor::rotorTurn() {
-    for (int i = 0; i < 26; i++) {
-        forward->at(i) = (forward->at(i) + 1) % 26;
-    }
+    rotate(forward->begin(), forward->begin()+1, forward->end());
+    rotate(backward->begin(), backward->begin()+25, backward->end());
 
-    calculateBackwardSettings();
-
-    numOfTurns++;
+    ++numOfTurns;
     if (numOfTurns == 26) {
         numOfTurns = 0;
         return true;
     }
 
     return false;
+}
+
+int Rotor::getNumOfTurns() {
+    return numOfTurns;
 }

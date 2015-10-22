@@ -21,6 +21,9 @@ Reflector.o: Reflector.cpp Reflector.h
 Component.o: Component.cpp Component.h
 	$(CC) $(CFLAGS) -c Component.cpp
 
+test: enigma
+	./tests.py
+
 clean:
 	rm -rf enigma *.o
 

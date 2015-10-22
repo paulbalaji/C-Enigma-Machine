@@ -21,6 +21,9 @@ public:
     bool rotorTurn() {
         return true;
     }
+    int getNumOfTurns() {
+        return -1;
+    }
 
 private:
     void firstTimeConfig(vector<int>*);

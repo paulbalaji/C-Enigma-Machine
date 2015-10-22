@@ -148,6 +148,7 @@ void turnRotors(vector<Component*>* components) {
     for (unsigned int i = 1; i < components->size() - 1; i++) {
         if (needToTurn) {
             needToTurn = components->at(i)->rotorTurn();
+//            cout << components->at(i)->getNumOfTurns();
         } else {
             //if don't need to turn, nothing else needs to turn
             break;

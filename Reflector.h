@@ -16,6 +16,9 @@ public:
     bool rotorTurn() {
         return false;
     }
+    int getNumOfTurns() {
+        return -1;
+    }
 };
 
 #endif /* REFLECTOR_H_ */
