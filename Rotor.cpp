@@ -27,7 +27,6 @@ void Rotor::calculateOffsets() {
 //return true if need to turn next rotor
 bool Rotor::rotorTurn() {
     rotate(forward->begin(), forward->begin()+1, forward->end());
-
     calculateBackwardSettings();
 
     ++numOfTurns;
